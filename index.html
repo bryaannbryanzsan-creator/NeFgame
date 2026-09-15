@@ -21,11 +21,21 @@ html,body{height:100%;overflow:hidden;background:#0d0d1a;font-family:-apple-syst
 .icon-btn:active{transform:scale(.9);background:rgba(255,255,255,0.2)}
 .canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:10px;position:relative;overflow:hidden}
 canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,0.2),inset 0 0 20px rgba(0,0,0,0.5);max-width:100%;max-height:100%;touch-action:none}
-.dpad{position:fixed;z-index:30;display:none;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(3,56px);gap:6px}
-.dpad.visible{display:grid}
-.dpad button{background:linear-gradient(145deg,#2c2c54,#1a1a2e);border:1px solid rgba(255,255,255,0.15);border-radius:14px;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .1s;box-shadow:0 4px 0 rgba(0,0,0,0.3);touch-action:none}
-.dpad button:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,0.3);background:linear-gradient(145deg,#e94560,#c73650)}
-.dpad .up{grid-column:2;grid-row:1}.dpad .left{grid-column:1;grid-row:2}.dpad .right{grid-column:3;grid-row:2}.dpad .down{grid-column:2;grid-row:3}
+.dpad{position:fixed;z-index:30;display:none;width:180px;height:180px;touch-action:none}
+.dpad.visible{display:block}
+.dpad-svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 4px 0 rgba(0,0,0,0.35));pointer-events:none}
+.dpad-arrows{position:absolute;inset:0;pointer-events:none}
+.dpad-arrows span{position:absolute;color:rgba(255,255,255,0.55);font-size:13px;text-shadow:0 1px 2px rgba(0,0,0,0.5)}
+.arr-up{top:20px;left:50%;transform:translateX(-50%)}
+.arr-down{bottom:20px;left:50%;transform:translateX(-50%)}
+.arr-left{left:20px;top:50%;transform:translateY(-50%)}
+.arr-right{right:20px;top:50%;transform:translateY(-50%)}
+.dpad-btn{position:absolute;background:transparent;border:none;cursor:pointer;touch-action:none;padding:0;transition:background .1s;border-radius:8px}
+.dpad-btn:active{background:rgba(233,69,96,0.45)}
+.dpad-btn.up{top:8px;left:60px;width:60px;height:52px;border-radius:12px 12px 4px 4px}
+.dpad-btn.down{bottom:8px;left:60px;width:60px;height:52px;border-radius:4px 4px 12px 12px}
+.dpad-btn.left{left:8px;top:60px;width:52px;height:60px;border-radius:12px 4px 4px 12px}
+.dpad-btn.right{right:8px;top:60px;width:52px;height:60px;border-radius:4px 12px 12px 4px}
 .overlay{position:absolute;inset:0;background:rgba(10,10,21,0.96);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;border-radius:15px;z-index:10;overflow-y:auto}
 .overlay.hidden{display:none!important}
 .overlay h1{font-size:32px;background:linear-gradient(90deg,#e94560,#f39c12);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
@@ -151,7 +161,6 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 .lb-player-row{display:flex;align-items:center;gap:10px;padding:12px;background:rgba(255,255,255,0.05);border-radius:12px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08)}
 .lb-player-row .lb-label{font-size:11px;color:#888;letter-spacing:1px}
 .lb-player-row .lb-name{font-size:15px;font-weight:bold;color:#fff;margin-top:2px}
-.lb-player-row .lb-id{font-size:10px;color:#666;font-family:monospace;margin-top:2px}
 .lb-list{display:flex;flex-direction:column;gap:8px}
 .lb-empty{text-align:center;padding:40px 20px;color:#666}
 .lb-empty .lb-empty-icon{font-size:50px;display:block;margin-bottom:10px;opacity:.5}
@@ -168,6 +177,41 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 .lb-date{font-size:10px;color:#888;margin-top:2px}
 .lb-score{font-size:20px;font-weight:bold;color:#f39c12;flex-shrink:0}
 .lb-item.top1 .lb-score{color:#fff;text-shadow:0 0 10px #f39c12}
+/* PAUSE OVERLAY */
+.pause-overlay{position:fixed;inset:0;background:rgba(10,10,21,0.98);backdrop-filter:blur(20px);z-index:500;display:none;flex-direction:column;align-items:center;justify-content:center;padding:25px;text-align:center;overflow-y:auto}
+.pause-overlay.active{display:flex}
+.pause-overlay h1{font-size:38px;background:linear-gradient(90deg,#f39c12,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:25px;letter-spacing:3px}
+.pause-section{width:100%;max-width:340px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:15px;padding:18px;margin-bottom:20px}
+.pause-section-title{font-size:12px;color:#f39c12;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px;font-weight:bold}
+.vol-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.vol-row:last-child{margin-bottom:0}
+.vol-label{font-size:13px;color:#fff;width:80px;text-align:left;flex-shrink:0;font-weight:600}
+.vol-value{font-size:12px;color:#f39c12;font-weight:bold;width:42px;text-align:right;flex-shrink:0}
+.vol-slider{flex:1;-webkit-appearance:none;appearance:none;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;outline:none;cursor:pointer}
+.vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:linear-gradient(135deg,#e94560,#f39c12);border-radius:50%;cursor:pointer;box-shadow:0 0 10px rgba(233,69,96,0.8);border:2px solid #fff}
+.vol-slider::-moz-range-thumb{width:22px;height:22px;background:linear-gradient(135deg,#e94560,#f39c12);border-radius:50%;cursor:pointer;border:2px solid #fff}
+.pause-btn{width:100%;max-width:340px;padding:15px;border:none;border-radius:50px;font-size:15px;font-weight:bold;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:.2s;letter-spacing:1px}
+.pause-btn:active{transform:scale(.97)}
+.pause-btn.primary{background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;box-shadow:0 8px 20px rgba(46,204,113,0.4)}
+.pause-btn.edit{background:linear-gradient(135deg,#9b59b6,#8e44ad);color:#fff;box-shadow:0 8px 20px rgba(155,89,182,0.4)}
+.pause-btn.danger{background:rgba(233,69,96,0.15);color:#e94560;border:2px solid #e94560}
+.pause-btn.finish{background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;box-shadow:0 8px 20px rgba(46,204,113,0.4)}
+.pause-btn.reset{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2)}
+/* CONTROLLER OVERLAY */
+.controller-overlay{position:fixed;inset:0;background:rgba(10,10,21,0.95);backdrop-filter:blur(15px);z-index:600;display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;padding-top:40px;text-align:center;overflow-y:auto}
+.controller-overlay.active{display:flex}
+.controller-overlay h1{font-size:24px;color:#f39c12;margin-bottom:8px}
+.controller-overlay .hint{font-size:13px;color:#aaa;margin-bottom:20px}
+.ctrl-panel{width:100%;max-width:340px;background:rgba(30,30,50,0.98);border:1px solid rgba(255,255,255,0.15);border-radius:15px;padding:18px;margin-bottom:12px;position:relative;z-index:610}
+.ctrl-title{font-size:12px;color:#f39c12;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px;font-weight:bold}
+.ctrl-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ctrl-label{font-size:13px;width:90px;text-align:left;flex-shrink:0}
+.ctrl-value{font-size:12px;color:#f39c12;font-weight:bold;width:42px;text-align:right;flex-shrink:0}
+/* DPAD EDIT MODE */
+.dpad.edit-mode{cursor:move;touch-action:none;z-index:700}
+.dpad.edit-mode::before{content:'';position:absolute;inset:-12px;border:2px dashed #f39c12;border-radius:22px;pointer-events:none;animation:pulseBorder 1.5s infinite}
+@keyframes pulseBorder{0%,100%{opacity:1}50%{opacity:.5}}
+.dpad.edit-mode .dpad-btn{pointer-events:none;opacity:.75}
 </style>
 </head>
 <body>
@@ -276,6 +320,7 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
       </div>
       <button class="btn-primary btn-shop" onclick="openShop()">🛒 TOKO</button>
       <button class="btn-secondary" onclick="showMyId()" style="margin-top:8px">🔑 Lihat ID Saya</button>
+      <button class="btn-secondary" onclick="logoutUser()" style="margin-top:8px;color:#e94560;border-color:#e94560">🚪 Logout</button>
     </div>
 
     <div class="overlay hidden" id="snakeMenuOverlay">
@@ -321,11 +366,48 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
   </div>
 </div>
 
+<!-- PAUSE OVERLAY -->
+<div class="pause-overlay" id="pauseOverlay">
+  <h1>⏸️ PAUSED</h1>
+  <div class="pause-section">
+    <div class="pause-section-title">🎚️ Pengaturan Suara</div>
+    <div class="vol-row"><span class="vol-label">🎵 Musik</span><input type="range" id="musicSlider" min="0" max="100" value="100" class="vol-slider" oninput="setMusicVolume(this.value)"><span class="vol-value" id="musicValue">100%</span></div>
+    <div class="vol-row"><span class="vol-label">🔊 Effect</span><input type="range" id="sfxSlider" min="0" max="100" value="100" class="vol-slider" oninput="setSfxVolume(this.value)"><span class="vol-value" id="sfxValue">100%</span></div>
+  </div>
+  <button class="pause-btn edit" onclick="openControllerSettings()">🎮 Atur Kontrol</button>
+  <button class="pause-btn primary" onclick="resumeGame()">▶️ Lanjut Main</button>
+  <button class="pause-btn danger" onclick="quitToMenu()">🏠 Menu Utama</button>
+</div>
+
+<!-- CONTROLLER OVERLAY -->
+<div class="controller-overlay" id="controllerOverlay">
+  <h1>🎮 Atur Kontrol</h1>
+  <p class="hint">👆 Geser D-pad ke posisi yang nyaman</p>
+  <div class="ctrl-panel">
+    <div class="ctrl-title">⚙️ Pengaturan Tombol</div>
+    <div class="ctrl-row"><span class="ctrl-label">📏 Ukuran</span><input type="range" id="sizeSlider" min="50" max="150" value="100" class="vol-slider" oninput="setDpadSize(this.value)"><span class="ctrl-value" id="sizeValue">100%</span></div>
+    <div class="ctrl-row"><span class="ctrl-label">👁️ Transparansi</span><input type="range" id="opacitySlider" min="20" max="100" value="100" class="vol-slider" oninput="setDpadOpacity(this.value)"><span class="ctrl-value" id="opacityValue">100%</span></div>
+  </div>
+  <button class="pause-btn reset" onclick="resetController()">↺ Reset Posisi & Ukuran</button>
+  <button class="pause-btn finish" onclick="closeControllerSettings()">✓ Selesai</button>
+</div>
+
 <div class="dpad" id="dpad">
-  <button class="up" ontouchstart="setDir('up');event.preventDefault()" onmousedown="setDir('up')">▲</button>
-  <button class="left" ontouchstart="setDir('left');event.preventDefault()" onmousedown="setDir('left')">◀</button>
-  <button class="right" ontouchstart="setDir('right');event.preventDefault()" onmousedown="setDir('right')">▶</button>
-  <button class="down" ontouchstart="setDir('down');event.preventDefault()" onmousedown="setDir('down')">▼</button>
+  <svg class="dpad-svg" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 60 8 L 120 8 L 120 60 L 172 60 L 172 120 L 120 120 L 120 172 L 60 172 L 60 120 L 8 120 L 8 60 L 60 60 Z" 
+          fill="#2c2c54" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="90" cy="90" r="10" fill="#1a1a2e" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  </svg>
+  <div class="dpad-arrows">
+    <span class="arr-up">▲</span>
+    <span class="arr-left">◀</span>
+    <span class="arr-right">▶</span>
+    <span class="arr-down">▼</span>
+  </div>
+  <button class="dpad-btn up" ontouchstart="setDir('up');event.preventDefault()" onmousedown="setDir('up')" aria-label="Up"></button>
+  <button class="dpad-btn left" ontouchstart="setDir('left');event.preventDefault()" onmousedown="setDir('left')" aria-label="Left"></button>
+  <button class="dpad-btn right" ontouchstart="setDir('right');event.preventDefault()" onmousedown="setDir('right')" aria-label="Right"></button>
+  <button class="dpad-btn down" ontouchstart="setDir('down');event.preventDefault()" onmousedown="setDir('down')" aria-label="Down"></button>
 </div>
 
 <script>
@@ -344,66 +426,30 @@ function playRecordSound(){if(!audioCtx||sfxVolume===0)return;const n=audioCtx.c
 const USERS_KEY='gamezone_users_v1';
 const SESSION_KEY='gamezone_session_v1';
 const LB_KEY='gamezone_leaderboard_v1';
-const ADMIN_NAME='Administrator'; // username Admin (10 huruf)
-const ADMIN_ID='ADMIN-0000-0001'; // ID Admin
+const ADMIN_NAME='Administrator';
+const ADMIN_ID='ADMIN-0000-0001';
 
-let currentUser=null; // {username, id}
+let currentUser=null;
+let isAdminUser=false;
 
-function loadUsers(){
-  try{const s=localStorage.getItem(USERS_KEY);return s?JSON.parse(s):{}}catch(e){return{}}
-}
+function loadUsers(){try{const s=localStorage.getItem(USERS_KEY);return s?JSON.parse(s):{}}catch(e){return{}}}
 function saveUsers(users){localStorage.setItem(USERS_KEY,JSON.stringify(users))}
-function loadSession(){
-  try{const s=localStorage.getItem(SESSION_KEY);return s?JSON.parse(s):null}catch(e){return null}
-}
+function loadSession(){try{const s=localStorage.getItem(SESSION_KEY);return s?JSON.parse(s):null}catch(e){return null}}
 function saveSession(user){localStorage.setItem(SESSION_KEY,JSON.stringify(user))}
 function clearSession(){localStorage.removeItem(SESSION_KEY)}
 
-// Normalisasi username untuk cek mirip
-// Ganti huruf mirip jadi huruf asli
 function normalizeName(name){
   let n=name.toLowerCase();
-  // Map huruf mirip ke huruf asli
-  const map={
-    '4':'a','@':'a',
-    '1':'i','l':'i','!':'i','|':'i',
-    '0':'o',
-    '3':'e',
-    '5':'s','$':'s',
-    '9':'g','6':'g',
-    '8':'b',
-    '7':'t',
-    '2':'z'
-  };
+  const map={'4':'a','@':'a','1':'i','l':'i','!':'i','|':'i','0':'o','3':'e','5':'s','$':'s','9':'g','6':'g','8':'b','7':'t','2':'z'};
   let out='';
-  for(let i=0;i<n.length;i++){
-    out+=map[n[i]]||n[i];
-  }
-  // Handle "rn" -> "m" (m kadang diganti rn)
-  out=out.replace(/rn/g,'m');
-  // Handle "vv" -> "w"
-  out=out.replace(/vv/g,'w');
+  for(let i=0;i<n.length;i++){out+=map[n[i]]||n[i]}
+  out=out.replace(/rn/g,'m').replace(/vv/g,'w');
   return out;
 }
 
-// Daftar kata sandi umum yang dilarang
-const BAD_WORDS=[
-  'password','passw0rd','qwerty','qwertyuiop','asdfgh','zxcvbn',
-  'iloveyou','letmein','welcome','monkey','dragon','master',
-  'sunshine','princess','football','baseball','superman','batman',
-  'administrator','administrateur','adminadmin','administrasi',
-  '12345678','123456789','1234567890','abcdefgh','abcdefghij',
-  'aaaaaaaaaa','1111111111','0000000000','qwertyuiop','asdfghjkl',
-  'kucing','anjing','sayang','cintaku','kamu','aku','kita',
-  'player','gamer','proplayer','mastergame','topglobal'
-];
+const BAD_WORDS=['password','passw0rd','qwerty','qwertyuiop','asdfgh','zxcvbn','iloveyou','letmein','welcome','monkey','dragon','master','sunshine','princess','football','baseball','superman','batman','administrator','administrateur','adminadmin','administrasi','12345678','123456789','1234567890','abcdefgh','abcdefghij','aaaaaaaaaa','1111111111','0000000000','qwertyuiop','asdfghjkl','kucing','anjing','sayang','cintaku','kamu','aku','kita','player','gamer','proplayer','mastergame','topglobal'];
+function isBadWord(name){const lower=name.toLowerCase();return BAD_WORDS.some(b=>lower.includes(b)||b.includes(lower))}
 
-function isBadWord(name){
-  const lower=name.toLowerCase();
-  return BAD_WORDS.some(b=>lower.includes(b)||b.includes(lower));
-}
-
-// Cek apakah username valid (huruf aja, 10-15)
 function validateUsername(name){
   if(!name)return{ok:false,msg:'Username tidak boleh kosong'};
   if(name.length<10)return{ok:false,msg:'Minimal 10 karakter'};
@@ -413,50 +459,33 @@ function validateUsername(name){
   return{ok:true};
 }
 
-// Cek apakah username mirip dengan yang udah ada
 function isSimilarTo(name,existingName){
   const a=normalizeName(name);
   const b=normalizeName(existingName);
   if(a===b)return true;
-  // Cek jarak Levenshtein <= 1 (beda 1 huruf)
   if(Math.abs(a.length-b.length)>1)return false;
   let edits=0;
-  if(a.length===b.length){
-    for(let i=0;i<a.length;i++){if(a[i]!==b[i])edits++}
-  }else{
-    // Panjang beda 1
+  if(a.length===b.length){for(let i=0;i<a.length;i++){if(a[i]!==b[i])edits++}}
+  else{
     const long=a.length>b.length?a:b;
     const short=a.length>b.length?b:a;
     let i=0,j=0;
-    while(i<long.length&&j<short.length){
-      if(long[i]===short[j]){i++;j++}
-      else{edits++;i++}
-    }
+    while(i<long.length&&j<short.length){if(long[i]===short[j]){i++;j++}else{edits++;i++}}
     edits+=long.length-i;
   }
   return edits<=1;
 }
 
-// Cek username bentrok dengan user yang udah ada
 function isUsernameTaken(name){
   const users=loadUsers();
   const lower=name.toLowerCase();
-  
-  // 1. Cek exact match & mirip dengan semua user
   for(const u in users){
     if(u.toLowerCase()===lower)return{ok:false,msg:'Username sudah dipakai'};
     if(isSimilarTo(name,u))return{ok:false,msg:'Username terlalu mirip dengan "'+u+'"'};
   }
-  
-  // 2. KUNCI KETAT: nama GAK BOLEH mengandung "admin"
   const normalized=normalizeName(name);
-  if(normalized.includes('admin')){
-    return{ok:false,msg:'Username tidak boleh mengandung kata "admin"'};
-  }
-  
-  // 3. Cek bentrok dengan Admin
+  if(normalized.includes('admin')){return{ok:false,msg:'Username tidak boleh mengandung kata "admin"'}}
   if(isSimilarTo(name,ADMIN_NAME))return{ok:false,msg:'Username terlalu mirip dengan Admin'};
-  
   return{ok:true};
 }
 
@@ -466,10 +495,8 @@ const ADMIN_SECRET = 'RVzmTCFk';
 function tryAdminLogin(input){
   const lower = input.toLowerCase().trim();
   if(!lower.startsWith('!admin')) return false;
-  
   const parts = input.trim().split(/\s+/);
   const codePart = parts.slice(1).join(' ');
-  
   if(!codePart){
     const code = prompt('🔐 Masukkan kode Admin:');
     if(code === ADMIN_SECRET){ loginAsAdmin(); return true; }
@@ -478,11 +505,7 @@ function tryAdminLogin(input){
     setTimeout(()=>usernameInput.classList.remove('error'),500);
     return true;
   }
-  
-  if(codePart === ADMIN_SECRET){
-    loginAsAdmin();
-    return true;
-  }
+  if(codePart === ADMIN_SECRET){ loginAsAdmin(); return true; }
   loginErr.textContent = '❌ Kode Admin salah!';
   usernameInput.classList.add('error');
   setTimeout(()=>usernameInput.classList.remove('error'),500);
@@ -496,6 +519,13 @@ function loginAsAdmin(){
     saveUsers(users);
   }
   currentUser = {username: ADMIN_NAME, id: users[ADMIN_NAME].id};
+  isAdminUser = true;
+  playerData.coins = 99999999;
+  playerData.ownedSkins = Object.keys(SKINS);
+  playerData.ownedHats = Object.keys(HATS);
+  playerData.equippedSkin = 'tiger';
+  playerData.equippedHat = 'rabbit';
+  savePlayerData();
   saveSession(currentUser);
   playRecordSound();
   loginModal.classList.add('hidden');
@@ -508,14 +538,12 @@ function loginAsAdmin(){
   showToast('👑 Login sebagai Admin berhasil!','success');
 }
 
-// Generate ID unik format XXXX-XXXX-XXXX
 function generateId(){
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   const seg=()=>{let s='';for(let i=0;i<4;i++)s+=chars[Math.floor(Math.random()*chars.length)];return s};
   return seg()+'-'+seg()+'-'+seg();
 }
 
-// ================= INIT ADMIN =================
 function initAdmin(){
   const users=loadUsers();
   if(!users[ADMIN_NAME]){
@@ -560,10 +588,7 @@ usernameInput.addEventListener('keydown',e=>{if(e.key==='Enter')submitRegister()
 function submitRegister(){
   initAudio();playClickSound();
   const name=usernameInput.value.trim();
-  
-  // ✅ Cek kode Admin rahasia
   if(tryAdminLogin(name)) return;
-  
   const v=validateUsername(name);
   if(!v.ok){
     loginErr.textContent='❌ '+v.msg;
@@ -578,7 +603,6 @@ function submitRegister(){
     setTimeout(()=>usernameInput.classList.remove('error'),500);
     return;
   }
-  // Register user baru
   const users=loadUsers();
   const id=generateId();
   users[name]={id,created:Date.now()};
@@ -586,7 +610,6 @@ function submitRegister(){
   currentUser={username:name,id};
   saveSession(currentUser);
   playRecordSound();
-  // Tampilkan popup ID
   showIdPopup(id,false);
 }
 
@@ -612,9 +635,7 @@ function copyMyId(){
   };
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(id).then(doSuccess).catch(()=>fallbackCopy(id,doSuccess));
-  }else{
-    fallbackCopy(id,doSuccess);
-  }
+  }else{fallbackCopy(id,doSuccess)}
 }
 function fallbackCopy(text,cb){
   const ta=document.createElement('textarea');
@@ -661,6 +682,7 @@ function submitLoginWithId(){
   for(const u in users){
     if(users[u].id===id){
       currentUser={username:u,id};
+      isAdminUser = (u === ADMIN_NAME);
       saveSession(currentUser);
       playRecordSound();
       loginIdModal.classList.add('hidden');
@@ -676,40 +698,65 @@ function submitLoginWithId(){
   err.textContent='❌ ID tidak ditemukan';
 }
 
+function logoutUser(){
+  if(!confirm('Yakin mau logout?\n\nPastikan ID kamu sudah disimpan ya!')) return;
+  playClickSound();
+  clearSession();
+  currentUser=null;
+  document.getElementById('app').style.display='none';
+  document.getElementById('loginModal').classList.remove('hidden');
+  usernameInput.value='';
+  loginErr.textContent='';
+  usernameInput.classList.remove('error');
+  document.getElementById('usernameHint').textContent='Huruf aja • 10-15 karakter';
+  document.getElementById('usernameHint').style.color='#666';
+  setTimeout(()=>usernameInput.focus(),100);
+  showToast('🚪 Logout berhasil','success');
+}
+
 function showMyId(){
   playClickSound();
   if(!currentUser)return;
   showIdPopup(currentUser.id,true);
-  idPopup.dataset.copied='true'; // kalau existing, langsung bisa close
+  idPopup.dataset.copied='true';
   document.getElementById('continueBtn').classList.add('ready');
 }
 
 // ================= LEADERBOARD =================
 let currentLbDiff=1;
-function loadLB(){
-  try{const s=localStorage.getItem(LB_KEY);return s?JSON.parse(s):{1:[],2:[],3:[]}}catch(e){return{1:[],2:[],3:[]}}
-}
+function loadLB(){try{const s=localStorage.getItem(LB_KEY);return s?JSON.parse(s):{1:[],2:[],3:[]}}catch(e){return{1:[],2:[],3:[]}}}
 function saveLB(lb){localStorage.setItem(LB_KEY,JSON.stringify(lb))}
 
 function submitTargetScore(diff,score){
   if(!currentUser||score<=0)return{rank:0,isNew:false};
   const lb=loadLB();
-  const list=lb[diff]||[];
-  const entry={username:currentUser.username,score,date:Date.now(),key:'k'+Math.random().toString(36).slice(2)};
+  let list=lb[diff]||[];
+  const existingIdx = list.findIndex(e => e.username === currentUser.username);
+  if(existingIdx >= 0){
+    if(score > list[existingIdx].score){
+      list[existingIdx].score = score;
+      list[existingIdx].date = Date.now();
+      list.sort((a,b)=>b.score-a.score);
+      list = list.slice(0,10);
+      lb[diff] = list;
+      saveLB(lb);
+      const newIdx = list.findIndex(e => e.username === currentUser.username);
+      return {rank:newIdx+1, isNew:true};
+    }
+    return {rank:0, isNew:false};
+  }
+  const entry = {username:currentUser.username, score, date:Date.now()};
   list.push(entry);
   list.sort((a,b)=>b.score-a.score);
-  const top=list.slice(0,10);
-  lb[diff]=top;
+  list = list.slice(0,10);
+  lb[diff] = list;
   saveLB(lb);
-  const idx=top.findIndex(e=>e.key===entry.key);
-  if(idx>=0)return{rank:idx+1,isNew:true};
-  return{rank:0,isNew:false};
+  const idx = list.findIndex(e => e.username===currentUser.username);
+  if(idx>=0)return{rank:idx+1, isNew:true};
+  return{rank:0, isNew:false};
 }
-function getTargetHighScore(diff){
-  const lb=loadLB();
-  const list=lb[diff]||[];
-  return list.length?list[0].score:0;
-}
+function getTargetHighScore(diff){const lb=loadLB();const list=lb[diff]||[];return list.length?list[0].score:0}
+
 function openLeaderboard(){
   initAudio();playClickSound();
   currentLbDiff=sDifficulty;
@@ -721,6 +768,32 @@ function openLeaderboard(){
   document.getElementById('lbModal').classList.add('active');
 }
 function closeLeaderboard(){playClickSound();document.getElementById('lbModal').classList.remove('active')}
+
+function deleteLbEntry(diff,index){
+  if(!isAdminUser){showToast('❌ Cuma Admin yang bisa hapus!','error');return}
+  const lb=loadLB();
+  const list=lb[diff]||[];
+  if(index<0||index>=list.length)return;
+  const nama=list[index].username;
+  if(!confirm(`Hapus skor "${nama}"?\n\nSkor: ${list[index].score}`))return;
+  list.splice(index,1);
+  lb[diff]=list;
+  saveLB(lb);
+  playClickSound();
+  renderLB();
+  showToast('🗑️ Skor dihapus','success');
+}
+function clearLeaderboard(){
+  if(!isAdminUser){showToast('❌ Cuma Admin yang bisa hapus!','error');return}
+  const namaDiff=['','EASY','NORMAL','HARD'][currentLbDiff];
+  if(!confirm(`Hapus SEMUA skor di ${namaDiff}?\n\nGak bisa dibalikin lho!`))return;
+  const lb=loadLB();
+  lb[currentLbDiff]=[];
+  saveLB(lb);
+  playClickSound();
+  renderLB();
+  showToast('🗑️ Leaderboard '+namaDiff+' dibersihin!','success');
+}
 function switchLbTab(diff,btn){
   playClickSound();currentLbDiff=diff;
   document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));
@@ -736,6 +809,7 @@ function formatDate(ts){
   return `${dd}/${mm}/${yy} ${hh}:${mi}`;
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
 function renderLB(){
   const body=document.getElementById('lbBody');
   const lb=loadLB();
@@ -743,6 +817,9 @@ function renderLB(){
   let html='';
   if(currentUser){
     html+=`<div class="lb-player-row"><div><div class="lb-label">PEMAIN AKTIF</div><div class="lb-name">${escapeHtml(currentUser.username)}${currentUser.username===ADMIN_NAME?' 👑':''}</div></div></div>`;
+  }
+  if(isAdminUser){
+    html+=`<button onclick="clearLeaderboard()" style="width:100%;padding:12px;margin-bottom:12px;background:rgba(233,69,96,0.15);border:2px solid #e94560;color:#e94560;border-radius:12px;font-weight:bold;font-family:inherit;font-size:13px;cursor:pointer">🗑️ HAPUS SEMUA (ADMIN)</button>`;
   }
   if(list.length===0){
     html+=`<div class="lb-empty"><span class="lb-empty-icon">🎯</span>Belum ada skor.<br>Main dulu yuk!</div>`;
@@ -753,7 +830,8 @@ function renderLB(){
       const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';
       const medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'#'+rank;
       const isMe=currentUser&&e.username===currentUser.username?' 👈':'';
-      html+=`<div class="lb-item ${cls}"><div class="lb-rank">${medal}</div><div class="lb-info"><div class="lb-name">${escapeHtml(e.username)}${isMe}</div><div class="lb-date">${formatDate(e.date)}</div></div><div class="lb-score">${e.score}</div></div>`;
+      const delBtn = isAdminUser ? `<button onclick="deleteLbEntry(${currentLbDiff},${i})" style="background:rgba(233,69,96,0.3);border:1px solid #e94560;color:#e94560;width:32px;height:32px;border-radius:50%;font-size:14px;cursor:pointer;flex-shrink:0;margin-left:8px">🗑️</button>` : '';
+      html+=`<div class="lb-item ${cls}"><div class="lb-rank">${medal}</div><div class="lb-info"><div class="lb-name">${escapeHtml(e.username)}${isMe}</div><div class="lb-date">${formatDate(e.date)}</div></div><div class="lb-score">${e.score}</div>${delBtn}</div>`;
     });
     html+='</div>';
   }
@@ -789,7 +867,6 @@ const dpad=document.getElementById('dpad');
 let CELL=20,canvasSize=400;
 let snake=[],dir={x:1,y:0},nextDir={x:1,y:0},food={x:0,y:0},score=0,highScore=0,running=false,paused=false,gameLoop=null,speed=150,particles=[],foodPulse=0;
 
-// ================= CANVAS RESIZE =================
 function resizeCanvas(){const wrap=canvas.parentElement;const size=Math.min(wrap.clientWidth-20,wrap.clientHeight-20);canvasSize=Math.floor(size/GRID)*GRID;canvas.width=canvasSize;canvas.height=canvasSize;CELL=canvasSize/GRID;canvas.style.width=canvasSize+'px';canvas.style.height=canvasSize+'px';if(!running)drawPreview()}
 window.addEventListener('resize',resizeCanvas);
 
@@ -827,7 +904,7 @@ canvas.addEventListener('touchstart',e=>{tsX=e.touches[0].clientX;tsY=e.touches[
 canvas.addEventListener('touchmove',e=>{if(currentGame!=='snake')return;e.preventDefault();const dx=e.changedTouches[0].clientX-tsX,dy=e.changedTouches[0].clientY-tsY;if(Math.abs(dx)<20&&Math.abs(dy)<20)return;if(Math.abs(dx)>Math.abs(dy))setDir(dx>0?'right':'left');else setDir(dy>0?'down':'up');tsX=e.changedTouches[0].clientX;tsY=e.changedTouches[0].clientY},{passive:false});
 function selectMode(mode,btn){selectedMode=mode;currentMode=mode;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const c=MODES[mode];document.getElementById('modeInfo').textContent=`Kecepatan awal: ${c.startSpeed}ms • Min: ${c.minSpeed}ms`;drawPreview()}
 function loadHighScore(mode){highScore=parseInt(localStorage.getItem('snakeHighScore_'+mode)||'0');document.getElementById('highScore').textContent=highScore}
-function startSnake(){initAudio();playClickSound();currentGame='snake';currentMode=selectedMode;const c=MODES[currentMode];resizeCanvas();loadHighScore(currentMode);const center=Math.floor(GRID/2);snake=[{x:center,y:center},{x:center-1,y:center},{x:center-2,y:center}];dir={x:1,y:0};nextDir={x:1,y:0};score=0;speed=c.startSpeed;particles=[];paused=false;document.getElementById('score').textContent='0';document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('newRecord').style.display='none';document.getElementById('pauseBtn').classList.add('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';dpad.classList.add('visible');randomFood();draw();running=true;clearInterval(gameLoop);gameLoop=setInterval(step,speed)}
+function startSnake(){initAudio();playClickSound();currentGame='snake';currentMode=selectedMode;const c=MODES[currentMode];resizeCanvas();loadHighScore(currentMode);const center=Math.floor(GRID/2);snake=[{x:center,y:center},{x:center-1,y:center},{x:center-2,y:center}];dir={x:1,y:0};nextDir={x:1,y:0};score = isAdminUser ? 9999999999999 : 0;speed=c.startSpeed;particles=[];paused=false;document.getElementById('score').textContent = score;document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('newRecord').style.display='none';document.getElementById('pauseBtn').classList.add('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';dpad.classList.add('visible');applyControllerSettings();randomFood();draw();running=true;clearInterval(gameLoop);gameLoop=setInterval(step,speed)}
 function endSnake(){running=false;paused=false;clearInterval(gameLoop);gameLoop=null;playGameOverSound();const coinsEarned=calculateCoins(score);playerData.coins+=coinsEarned;savePlayerData();const isNew=score>highScore;if(isNew){highScore=score;localStorage.setItem('snakeHighScore_'+currentMode,highScore);document.getElementById('highScore').textContent=highScore;document.getElementById('newRecord').style.display='block'}
 document.getElementById('finalScore').textContent='Skor: '+score;document.getElementById('gameOverMode').textContent='Mode: '+MODES[currentMode].name;document.getElementById('gameOverOverlay').classList.remove('hidden');document.getElementById('pauseBtn').classList.remove('visible');dpad.classList.remove('visible')}
 
@@ -843,14 +920,14 @@ function srand(a,b){return Math.random()*(b-a)+a}
 function resizeShoot(){const wrap=document.getElementById('shootWrap');const w=wrap.clientWidth-20,h=wrap.clientHeight-20;const aspect=16/10;let nw=w,nh=w/aspect;if(nh>h){nh=h;nw=h*aspect}sdpr=Math.min(devicePixelRatio||1,2);SW=nw;SH=nh;shootCanvas.width=Math.floor(SW*sdpr);shootCanvas.height=Math.floor(SH*sdpr);shootCanvas.style.width=SW+'px';shootCanvas.style.height=SH+'px';sctx.setTransform(sdpr,0,0,sdpr,0,0);if(!sPlaying)sraw()}
 window.addEventListener('resize',()=>{setTimeout(resizeShoot,50)});
 function sSpawn(){const r=sDifficulty===3?srand(18,29):sDifficulty===2?srand(22,34):srand(26,40);sTargets.push({x:srand(r+8,SW-r-8),y:srand(r+8,SH-r-8),r,vx:srand(-35,35)*sDifficulty,vy:srand(-35,35)*sDifficulty,life:srand(1.4,2.7),age:0,kind:Math.random()<.13?'bonus':'normal'})}
-function sReset(){sScore=0;sTimeLeft=30;sCombo=0;sTargets=[];sParticles=[];sShots=[];sSpawnClock=0;document.getElementById('score').textContent=0}
+function sReset(){sScore=0;sTimeLeft=30;sCombo=0;sTargets=[];sParticles=[];sShots=[];sSpawnClock=0;document.getElementById('score').textContent=isAdminUser?9999999999999:0;if(isAdminUser)sScore=9999999999999}
 function updateHighScoreUI(){sHigh=getTargetHighScore(sDifficulty);document.getElementById('highScore').textContent=sHigh}
 function startShoot(){initAudio();playClickSound();sReset();sPlaying=true;sPaused=false;shootOverlay.style.display='none';document.getElementById('pauseBtn').classList.add('visible');document.getElementById('lbBtn').classList.add('visible');updateHighScoreUI();for(let i=0;i<4+sDifficulty;i++)sSpawn();sLast=performance.now();requestAnimationFrame(sLoop)}
 function endShoot(){sPlaying=false;sPaused=false;playGameOverSound();const result=submitTargetScore(sDifficulty,sScore);if(result.isNew&&result.rank===1)setTimeout(playRecordSound,300);updateHighScoreUI();const diffName=['','EASY','NORMAL','HARD'][sDifficulty];let extraMsg='';if(result.isNew){if(result.rank===1)extraMsg=`🥇 REKOR BARU! Peringkat #1`;else extraMsg=`🎉 Masuk Top 10! Peringkat #${result.rank}`;}
 shootTitle.textContent='🏆 GAME OVER';
 shootMsg.innerHTML=`Mode: <b>${diffName}</b><br>Skor: <b style="color:#f39c12;font-size:20px">${sScore}</b> • High: <b>${sHigh}</b>${extraMsg?`<br><span style="color:#2ecc71;font-weight:bold">${extraMsg}</span>`:''}`;
 shootStartBtn.textContent='↻ MAIN LAGI';shootOverlay.style.display='flex';document.getElementById('pauseBtn').classList.remove('visible')}
-function sTogglePause(){if(!sPlaying)return;sPaused=!sPaused;if(sPaused){pauseGame()}else{resumeGame();sLast=performance.now();requestAnimationFrame(sLoop)}}
+function sTogglePause(){if(!sPlaying)return;sPaused=!sPaused;if(sPaused){playClickSound();showToast('⏸️ Paused - klik ⏸️ lagi untuk lanjut','success')}else{playClickSound();sLast=performance.now();requestAnimationFrame(sLoop)}}
 function sHit(x,y){if(!sPlaying||sPaused)return;for(let i=sTargets.length-1;i>=0;i--){const t=sTargets[i],d=Math.hypot(x-t.x,y-t.y);if(d<=t.r){sTargets.splice(i,1);sCombo++;let pts=t.kind==='bonus'?50:10;pts+=Math.min(sCombo-1,10)*2;sScore+=pts;document.getElementById('score').textContent=sScore;playHitSound(t.kind==='bonus');for(let n=0;n<14;n++)sParticles.push({x:t.x,y:t.y,vx:srand(-100,100),vy:srand(-100,100),life:.45});sShots.push({x,y,life:.15});sSpawn();return}}
 sCombo=0;sScore=Math.max(0,sScore-2);document.getElementById('score').textContent=sScore;playMissSound();sShots.push({x,y,life:.15,miss:true})}
 shootCanvas.addEventListener('pointerdown',e=>{e.preventDefault();const r=shootCanvas.getBoundingClientRect();const x=(e.clientX-r.left)*(SW/r.width),y=(e.clientY-r.top)*(SH/r.height);sHit(x,y)});
@@ -870,11 +947,64 @@ shootDiffBtn.onclick=()=>{sDifficulty=sDifficulty===3?1:sDifficulty+1;shootDiffB
 // ================= ROUTER =================
 function openSnake(){initAudio();playClickSound();currentGame='snake_menu';document.getElementById('menuOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.remove('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.remove('visible');resizeCanvas();drawPreview()}
 function openShoot(){initAudio();playClickSound();currentGame='shoot';document.getElementById('menuOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');canvas.style.display='none';document.getElementById('shootWrap').style.display='flex';dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.add('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('score').textContent='0';shootOverlay.style.display='flex';shootTitle.textContent='🎯 TARGET SHOOTING';shootMsg.textContent='Hit target bergerak sebelum waktu habis!';shootStartBtn.textContent='▶ START';setTimeout(resizeShoot,50)}
-function goBack(){playClickSound();running=false;paused=false;sPlaying=false;sPaused=false;clearInterval(gameLoop);gameLoop=null;dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';document.getElementById('menuOverlay').classList.remove('hidden');document.getElementById('score').textContent='0';document.getElementById('highScore').textContent='0';currentGame=null;resizeCanvas();drawPreview()}
+function goBack(){playClickSound();running=false;paused=false;sPlaying=false;sPaused=false;clearInterval(gameLoop);gameLoop=null;document.getElementById('pauseOverlay').classList.remove('active');document.getElementById('controllerOverlay').classList.remove('active');dpad.classList.remove('visible');dpad.classList.remove('edit-mode');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';document.getElementById('menuOverlay').classList.remove('hidden');document.getElementById('score').textContent='0';document.getElementById('highScore').textContent='0';currentGame=null;resizeCanvas();drawPreview()}
 
 // ================= PAUSE =================
-function pauseGame(){if(currentGame==='shoot'){sTogglePause();return}if(!running||paused)return;paused=true;clearInterval(gameLoop);gameLoop=null;playClickSound();showToast('⏸️ Paused','success')}
-function resumeGame(){if(currentGame==='shoot'){sTogglePause();return}if(!running||!paused)return;paused=false;playClickSound();gameLoop=setInterval(step,speed)}
+function pauseGame(){
+  if(currentGame==='shoot'){
+    if(!sPlaying||sPaused)return;
+    sPaused=true;playClickSound();
+    document.getElementById('pauseOverlay').classList.add('active');
+    return;
+  }
+  if(!running||paused)return;
+  paused=true;clearInterval(gameLoop);gameLoop=null;
+  playClickSound();
+  document.getElementById('pauseOverlay').classList.add('active');
+}
+function resumeGame(){
+  document.getElementById('pauseOverlay').classList.remove('active');
+  document.getElementById('controllerOverlay').classList.remove('active');
+  dpad.classList.remove('edit-mode');
+  if(currentGame==='shoot'){
+    if(!sPlaying||!sPaused)return;
+    sPaused=false;playClickSound();
+    sLast=performance.now();
+    requestAnimationFrame(sLoop);
+    return;
+  }
+  if(!running||!paused)return;
+  paused=false;playClickSound();
+  gameLoop=setInterval(step,speed);
+}
+function quitToMenu(){
+  document.getElementById('pauseOverlay').classList.remove('active');
+  document.getElementById('controllerOverlay').classList.remove('active');
+  dpad.classList.remove('edit-mode');
+  goBack();
+}
+
+// ================= VOLUME =================
+let musicVolume=1.0;
+function setMusicVolume(val){musicVolume=val/100;document.getElementById('musicValue').textContent=val+'%';localStorage.setItem('gamezone_musicVol',val)}
+function setSfxVolume(val){sfxVolume=val/100;document.getElementById('sfxValue').textContent=val+'%';if(sfxGain&&audioCtx)sfxGain.gain.setValueAtTime(sfxVolume,audioCtx.currentTime);localStorage.setItem('gamezone_sfxVol',val);if(val>0)playClickSound()}
+function loadVolumeSettings(){const mv=localStorage.getItem('gamezone_musicVol');const sv=localStorage.getItem('gamezone_sfxVol');if(mv!==null){musicVolume=parseInt(mv)/100;document.getElementById('musicSlider').value=mv;document.getElementById('musicValue').textContent=mv+'%'}if(sv!==null){sfxVolume=parseInt(sv)/100;document.getElementById('sfxSlider').value=sv;document.getElementById('sfxValue').textContent=sv+'%'}}
+
+// ================= CONTROLLER =================
+let ctrlSettings={x:null,y:null,size:100,opacity:100};
+let dragState={active:false,sx:0,sy:0,ox:0,oy:0};
+function loadControllerSettings(){try{const s=localStorage.getItem('gamezone_controller');if(s)ctrlSettings={...ctrlSettings,...JSON.parse(s)}}catch(e){}document.getElementById('sizeSlider').value=ctrlSettings.size;document.getElementById('sizeValue').textContent=ctrlSettings.size+'%';document.getElementById('opacitySlider').value=ctrlSettings.opacity;document.getElementById('opacityValue').textContent=ctrlSettings.opacity+'%'}
+function saveControllerSettings(){const rect=dpad.getBoundingClientRect();ctrlSettings.x=(rect.left/window.innerWidth)*100;ctrlSettings.y=(rect.top/window.innerHeight)*100;localStorage.setItem('gamezone_controller',JSON.stringify(ctrlSettings))}
+function applyControllerSettings(){if(ctrlSettings.x!==null&&ctrlSettings.y!==null){dpad.style.left=(ctrlSettings.x/100)*window.innerWidth+'px';dpad.style.top=(ctrlSettings.y/100)*window.innerHeight+'px';dpad.style.right='auto';dpad.style.bottom='auto'}else{const w=180;dpad.style.left=((window.innerWidth-w)/2)+'px';dpad.style.top=(window.innerHeight-220)+'px';dpad.style.right='auto';dpad.style.bottom='auto'}dpad.style.transform=`scale(${ctrlSettings.size/100})`;dpad.style.transformOrigin='center center';dpad.style.opacity=ctrlSettings.opacity/100}
+function setDpadSize(val){ctrlSettings.size=parseInt(val);dpad.style.transform=`scale(${ctrlSettings.size/100})`;document.getElementById('sizeValue').textContent=val+'%';localStorage.setItem('gamezone_controller',JSON.stringify(ctrlSettings))}
+function setDpadOpacity(val){ctrlSettings.opacity=parseInt(val);dpad.style.opacity=ctrlSettings.opacity/100;document.getElementById('opacityValue').textContent=val+'%';localStorage.setItem('gamezone_controller',JSON.stringify(ctrlSettings))}
+function openControllerSettings(){playClickSound();document.getElementById('pauseOverlay').classList.remove('active');document.getElementById('controllerOverlay').classList.add('active');dpad.classList.add('edit-mode');applyControllerSettings()}
+function closeControllerSettings(){playClickSound();document.getElementById('controllerOverlay').classList.remove('active');dpad.classList.remove('edit-mode');saveControllerSettings();document.getElementById('pauseOverlay').classList.add('active');showToast('✅ Pengaturan kontrol disimpan','success')}
+function resetController(){playClickSound();ctrlSettings={x:null,y:null,size:100,opacity:100};localStorage.removeItem('gamezone_controller');document.getElementById('sizeSlider').value=100;document.getElementById('sizeValue').textContent='100%';document.getElementById('opacitySlider').value=100;document.getElementById('opacityValue').textContent='100%';applyControllerSettings();showToast('↺ Kontrol direset','success')}
+dpad.addEventListener('pointerdown',e=>{if(!dpad.classList.contains('edit-mode'))return;e.preventDefault();dragState.active=true;dragState.sx=e.clientX;dragState.sy=e.clientY;const rect=dpad.getBoundingClientRect();dragState.ox=rect.left;dragState.oy=rect.top;try{dpad.setPointerCapture(e.pointerId)}catch(err){}});
+dpad.addEventListener('pointermove',e=>{if(!dragState.active)return;e.preventDefault();const dx=e.clientX-dragState.sx;const dy=e.clientY-dragState.sy;let nl=dragState.ox+dx;let nt=dragState.oy+dy;const rect=dpad.getBoundingClientRect();nl=Math.max(0,Math.min(window.innerWidth-rect.width,nl));nt=Math.max(0,Math.min(window.innerHeight-rect.height,nt));dpad.style.left=nl+'px';dpad.style.top=nt+'px';dpad.style.right='auto';dpad.style.bottom='auto'});
+dpad.addEventListener('pointerup',e=>{if(!dragState.active)return;dragState.active=false;saveControllerSettings()});
+dpad.addEventListener('pointercancel',e=>{dragState.active=false});
 
 // ================= SHOP =================
 function openShop(){initAudio();playClickSound();document.getElementById('shopModal').classList.add('active');renderShopItems();drawPreviewShop()}
@@ -896,11 +1026,21 @@ function showToast(msg,type=''){const t=document.getElementById('toast');t.textC
 // ================= INIT =================
 initAdmin();
 loadPlayerData();
+loadVolumeSettings();
+loadControllerSettings();
+applyControllerSettings();
 const session=loadSession();
 if(session){
   const users=loadUsers();
   if(users[session.username]){
     currentUser=session;
+    if(session.username === ADMIN_NAME){
+      isAdminUser = true;
+      playerData.coins = 99999999;
+      playerData.ownedSkins = Object.keys(SKINS);
+      playerData.ownedHats = Object.keys(HATS);
+      savePlayerData();
+    }
     document.getElementById('loginModal').classList.add('hidden');
     document.getElementById('app').style.display='flex';
     document.getElementById('welcomeMsg').textContent='Selamat datang kembali, '+currentUser.username+'!';
