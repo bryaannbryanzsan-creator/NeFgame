@@ -175,13 +175,13 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 <!-- LOGIN MODAL -->
 <div class="login-modal" id="loginModal">
   <div class="login-box">
-    <div class="logo"></div>
+    <div class="logo">🎮</div>
     <h1>GameZone</h1>
     <p class="sub">Masukkan username untuk mulai bermain</p>
     <div class="input-wrap">
       <label>Username</label>
       <input type="text" id="usernameInput" maxlength="15" placeholder="minimal 10 huruf" autocomplete="off">
-      <div class="hint" id="usernameHint">Huruf aja � 10-15 karakter</div>
+      <div class="hint" id="usernameHint">Huruf aja • 10-15 karakter</div>
     </div>
     <div class="err-msg" id="loginErr"></div>
     <button class="btn-main" onclick="submitRegister()">MULAI</button>
@@ -192,7 +192,7 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 <!-- LOGIN WITH ID -->
 <div class="login-modal hidden" id="loginIdModal">
   <div class="login-box">
-    <div class="logo"></div>
+    <div class="logo">🔑</div>
     <h1>Login dengan ID</h1>
     <p class="sub">Masukkan ID unik yang kamu simpan</p>
     <div class="input-wrap">
@@ -201,30 +201,30 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
     </div>
     <div class="err-msg" id="loginIdErr"></div>
     <button class="btn-main" onclick="submitLoginWithId()">LOGIN</button>
-    <button class="btn-link" onclick="backToRegister()"> Kembali</button>
+    <button class="btn-link" onclick="backToRegister()">← Kembali</button>
   </div>
 </div>
 
 <!-- ID POPUP -->
 <div class="id-popup" id="idPopup">
   <div class="id-box">
-    <div class="id-icon"></div>
+    <div class="id-icon">📋</div>
     <h2>Copy ID mu terlebih dahulu!</h2>
     <p>ID ini adalah kunci akunmu.<br>Simpan baik-baik untuk login di HP lain.</p>
     <div class="id-display" id="myIdDisplay">----</div>
-    <button class="btn-copy" id="copyBtn" onclick="copyMyId()"> COPY ID</button>
+    <button class="btn-copy" id="copyBtn" onclick="copyMyId()">📋 COPY ID</button>
     <button class="btn-continue" id="continueBtn" onclick="closeIdPopup()">LANJUT MAIN</button>
-    <div class="warn"> Wajib copy dulu sebelum lanjut!</div>
+    <div class="warn">⚠️ Wajib copy dulu sebelum lanjut!</div>
   </div>
 </div>
 
 <div id="app" style="display:none">
   <div class="topbar">
-    <button id="backBtn" class="icon-btn visible" onclick="goBack()"></button>
+    <button id="backBtn" class="icon-btn visible" onclick="goBack()">←</button>
     <div class="score-box"><span class="score-label">Skor</span><span class="score-value" id="score">0</span></div>
     <div style="display:flex;gap:6px">
-      <button id="lbBtn" class="icon-btn" onclick="openLeaderboard()" style="font-size:15px"></button>
-      <button id="pauseBtn" class="icon-btn" onclick="pauseGame()"></button>
+      <button id="lbBtn" class="icon-btn" onclick="openLeaderboard()" style="font-size:15px">🏆</button>
+      <button id="pauseBtn" class="icon-btn" onclick="pauseGame()">⏸️</button>
     </div>
     <div class="score-box right"><span class="score-label">Terbaik</span><span class="score-value" id="highScore">0</span></div>
   </div>
@@ -235,10 +235,10 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
       <canvas id="shootCanvas"></canvas>
       <div id="shootOverlay">
         <div class="shoot-panel">
-          <h1 id="shootTitle"> TARGET SHOOTING</h1>
+          <h1 id="shootTitle">🎯 TARGET SHOOTING</h1>
           <p id="shootMsg">Hit target bergerak sebelum waktu habis!</p>
           <div class="shoot-row">
-            <button class="shoot-btn primary" id="shootStart"> START</button>
+            <button class="shoot-btn primary" id="shootStart">▶ START</button>
             <button class="shoot-btn" id="shootDiff">MODE: EASY</button>
           </div>
         </div>
@@ -247,58 +247,58 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 
     <div class="lb-modal" id="lbModal">
       <div class="lb-header">
-        <h2> LEADERBOARD</h2>
-        <button class="lb-close" onclick="closeLeaderboard()"></button>
+        <h2>🏆 LEADERBOARD</h2>
+        <button class="lb-close" onclick="closeLeaderboard()">✕</button>
       </div>
       <div class="lb-tabs">
-        <button class="lb-tab easy active" data-diff="1" onclick="switchLbTab(1,this)"> EASY</button>
-        <button class="lb-tab normal" data-diff="2" onclick="switchLbTab(2,this)"> NORMAL</button>
-        <button class="lb-tab hard" data-diff="3" onclick="switchLbTab(3,this)"> HARD</button>
+        <button class="lb-tab easy active" data-diff="1" onclick="switchLbTab(1,this)">🌱 EASY</button>
+        <button class="lb-tab normal" data-diff="2" onclick="switchLbTab(2,this)">⚡ NORMAL</button>
+        <button class="lb-tab hard" data-diff="3" onclick="switchLbTab(3,this)">💀 HARD</button>
       </div>
       <div class="lb-body" id="lbBody"></div>
     </div>
 
     <div class="overlay" id="menuOverlay">
-      <div class="emoji-big"></div>
+      <div class="emoji-big">🎮</div>
       <h1>GameZone</h1>
       <p id="welcomeMsg">Selamat datang!</p>
       <div class="game-grid">
         <button class="game-card snake" onclick="openSnake()">
-          <span class="game-icon"></span>
+          <span class="game-icon">🐍</span>
           <span class="game-title">SNAKE</span>
           <span class="game-sub">4 mode kecepatan</span>
         </button>
         <button class="game-card shoot" onclick="openShoot()">
-          <span class="game-icon"></span>
+          <span class="game-icon">🎯</span>
           <span class="game-title">TARGET</span>
           <span class="game-sub">Tembak sasaran</span>
         </button>
       </div>
-      <button class="btn-primary btn-shop" onclick="openShop()"> TOKO</button>
-      <button class="btn-secondary" onclick="showMyId()" style="margin-top:8px"> Lihat ID Saya</button>
+      <button class="btn-primary btn-shop" onclick="openShop()">🛒 TOKO</button>
+      <button class="btn-secondary" onclick="showMyId()" style="margin-top:8px">🔑 Lihat ID Saya</button>
     </div>
 
     <div class="overlay hidden" id="snakeMenuOverlay">
-      <div class="emoji-big"></div>
+      <div class="emoji-big">🐍</div>
       <h1>Snake</h1>
       <p>Pilih kecepatan permainan</p>
       <div class="mode-title">Mode Kecepatan</div>
       <div class="mode-list">
-        <button class="mode-btn" data-mode="slow" onclick="selectMode('slow',this)"><span class="mode-icon"></span><span class="mode-name">SLOW</span><span class="mode-desc">Sangat lambat</span></button>
-        <button class="mode-btn selected" data-mode="normal" onclick="selectMode('normal',this)"><span class="mode-icon"></span><span class="mode-name">NORMAL</span><span class="mode-desc">Sedang</span></button>
-        <button class="mode-btn" data-mode="fast" onclick="selectMode('fast',this)"><span class="mode-icon"></span><span class="mode-name">FAST</span><span class="mode-desc">Cepat</span></button>
-        <button class="mode-btn" data-mode="hard" onclick="selectMode('hard',this)"><span class="mode-icon"></span><span class="mode-name">HARD</span><span class="mode-desc">Super cepat!</span></button>
+        <button class="mode-btn" data-mode="slow" onclick="selectMode('slow',this)"><span class="mode-icon">🐢</span><span class="mode-name">SLOW</span><span class="mode-desc">Sangat lambat</span></button>
+        <button class="mode-btn selected" data-mode="normal" onclick="selectMode('normal',this)"><span class="mode-icon">⚡</span><span class="mode-name">NORMAL</span><span class="mode-desc">Sedang</span></button>
+        <button class="mode-btn" data-mode="fast" onclick="selectMode('fast',this)"><span class="mode-icon">🔥</span><span class="mode-name">FAST</span><span class="mode-desc">Cepat</span></button>
+        <button class="mode-btn" data-mode="hard" onclick="selectMode('hard',this)"><span class="mode-icon">💀</span><span class="mode-name">HARD</span><span class="mode-desc">Super cepat!</span></button>
       </div>
       <div id="modeInfo" class="speed-indicator">Kecepatan awal: 150ms</div>
-      <div class="info-note"> Tembok tembus</div>
+      <div class="info-note">🌐 Tembok tembus</div>
       <button class="btn-primary" style="margin-top:15px" onclick="startSnake()">MULAI</button>
-      <button class="btn-secondary" onclick="goBack()"> Menu Utama</button>
+      <button class="btn-secondary" onclick="goBack()">← Menu Utama</button>
     </div>
 
     <div class="overlay hidden" id="gameOverOverlay">
-      <div class="emoji-big"></div>
+      <div class="emoji-big">💀</div>
       <h1>Game Over</h1>
-      <div id="newRecord" class="badge-new-record" style="display:none"> REKOR BARU!</div>
+      <div id="newRecord" class="badge-new-record" style="display:none">🏆 REKOR BARU!</div>
       <div class="final-score" id="finalScore">Skor: 0</div>
       <p id="gameOverMode">Mode: Normal</p>
       <button class="btn-primary" onclick="startSnake()">MAIN LAGI</button>
@@ -307,12 +307,12 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 
     <div class="shop-modal" id="shopModal">
       <div class="shop-header">
-        <h2> Toko</h2>
-        <button class="shop-close" onclick="closeShop()"></button>
+        <h2>🛒 Toko</h2>
+        <button class="shop-close" onclick="closeShop()">✕</button>
       </div>
       <div class="shop-body">
-        <div class="shop-column"><div class="shop-column-title"> Skin</div><div class="shop-items" id="skinItems"></div></div>
-        <div class="shop-column"><div class="shop-column-title"> Hat</div><div class="shop-items" id="hatItems"></div></div>
+        <div class="shop-column"><div class="shop-column-title">🎨 Skin</div><div class="shop-items" id="skinItems"></div></div>
+        <div class="shop-column"><div class="shop-column-title">🎩 Hat</div><div class="shop-items" id="hatItems"></div></div>
       </div>
       <div class="shop-preview-wrap"><canvas id="previewCanvas" width="500" height="140"></canvas></div>
     </div>
@@ -322,10 +322,10 @@ canvas{background:#0a0a15;border-radius:15px;box-shadow:0 0 40px rgba(233,69,96,
 </div>
 
 <div class="dpad" id="dpad">
-  <button class="up" ontouchstart="setDir('up');event.preventDefault()" onmousedown="setDir('up')"></button>
-  <button class="left" ontouchstart="setDir('left');event.preventDefault()" onmousedown="setDir('left')"></button>
-  <button class="right" ontouchstart="setDir('right');event.preventDefault()" onmousedown="setDir('right')"></button>
-  <button class="down" ontouchstart="setDir('down');event.preventDefault()" onmousedown="setDir('down')"></button>
+  <button class="up" ontouchstart="setDir('up');event.preventDefault()" onmousedown="setDir('up')">▲</button>
+  <button class="left" ontouchstart="setDir('left');event.preventDefault()" onmousedown="setDir('left')">◀</button>
+  <button class="right" ontouchstart="setDir('right');event.preventDefault()" onmousedown="setDir('right')">▶</button>
+  <button class="down" ontouchstart="setDir('down');event.preventDefault()" onmousedown="setDir('down')">▼</button>
 </div>
 
 <script>
@@ -460,6 +460,54 @@ function isUsernameTaken(name){
   return{ok:true};
 }
 
+// ================= ADMIN SECRET LOGIN =================
+const ADMIN_SECRET = 'RVzmTCFk';
+
+function tryAdminLogin(input){
+  const lower = input.toLowerCase().trim();
+  if(!lower.startsWith('!admin')) return false;
+  
+  const parts = input.trim().split(/\s+/);
+  const codePart = parts.slice(1).join(' ');
+  
+  if(!codePart){
+    const code = prompt('🔐 Masukkan kode Admin:');
+    if(code === ADMIN_SECRET){ loginAsAdmin(); return true; }
+    loginErr.textContent = '❌ Kode Admin salah!';
+    usernameInput.classList.add('error');
+    setTimeout(()=>usernameInput.classList.remove('error'),500);
+    return true;
+  }
+  
+  if(codePart === ADMIN_SECRET){
+    loginAsAdmin();
+    return true;
+  }
+  loginErr.textContent = '❌ Kode Admin salah!';
+  usernameInput.classList.add('error');
+  setTimeout(()=>usernameInput.classList.remove('error'),500);
+  return true;
+}
+
+function loginAsAdmin(){
+  const users = loadUsers();
+  if(!users[ADMIN_NAME]){
+    users[ADMIN_NAME] = {id: ADMIN_ID, created: Date.now(), isAdmin: true};
+    saveUsers(users);
+  }
+  currentUser = {username: ADMIN_NAME, id: users[ADMIN_NAME].id};
+  saveSession(currentUser);
+  playRecordSound();
+  loginModal.classList.add('hidden');
+  loginIdModal.classList.add('hidden');
+  document.getElementById('app').style.display = 'flex';
+  document.getElementById('welcomeMsg').textContent = '👑 Selamat datang, Admin!';
+  updateHighScoreUI();
+  resizeCanvas();
+  drawPreview();
+  showToast('👑 Login sebagai Admin berhasil!','success');
+}
+
 // Generate ID unik format XXXX-XXXX-XXXX
 function generateId(){
   const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -499,10 +547,10 @@ usernameInput.addEventListener('input',()=>{
   const hint=document.getElementById('usernameHint');
   if(v){
     const letters=v.replace(/[^a-zA-Z]/g,'');
-    hint.textContent=`${letters.length}/10-15 huruf`+(letters!==v?'  ada karakter tidak valid':'');
+    hint.textContent=`${letters.length}/10-15 huruf`+(letters!==v?' ⚠️ ada karakter tidak valid':'');
     hint.style.color=letters!==v?'#e94560':(letters.length>=10&&letters.length<=15?'#2ecc71':'#666');
   }else{
-    hint.textContent='Huruf aja � 10-15 karakter';
+    hint.textContent='Huruf aja • 10-15 karakter';
     hint.style.color='#666';
   }
 });
@@ -512,16 +560,20 @@ usernameInput.addEventListener('keydown',e=>{if(e.key==='Enter')submitRegister()
 function submitRegister(){
   initAudio();playClickSound();
   const name=usernameInput.value.trim();
+  
+  // ✅ Cek kode Admin rahasia
+  if(tryAdminLogin(name)) return;
+  
   const v=validateUsername(name);
   if(!v.ok){
-    loginErr.textContent=' '+v.msg;
+    loginErr.textContent='❌ '+v.msg;
     usernameInput.classList.add('error');
     setTimeout(()=>usernameInput.classList.remove('error'),500);
     return;
   }
   const t=isUsernameTaken(name);
   if(!t.ok){
-    loginErr.textContent=' '+t.msg;
+    loginErr.textContent='❌ '+t.msg;
     usernameInput.classList.add('error');
     setTimeout(()=>usernameInput.classList.remove('error'),500);
     return;
@@ -542,7 +594,7 @@ function showIdPopup(id,isExisting){
   document.getElementById('myIdDisplay').textContent=id;
   const copyBtn=document.getElementById('copyBtn');
   copyBtn.classList.remove('copied');
-  copyBtn.textContent=' COPY ID';
+  copyBtn.textContent='📋 COPY ID';
   document.getElementById('continueBtn').classList.remove('ready');
   idPopup.dataset.copied='false';
   idPopup.classList.add('active');
@@ -553,7 +605,7 @@ function copyMyId(){
   const btn=document.getElementById('copyBtn');
   const doSuccess=()=>{
     btn.classList.add('copied');
-    btn.textContent=' TERSALIN!';
+    btn.textContent='✅ TERSALIN!';
     document.getElementById('continueBtn').classList.add('ready');
     idPopup.dataset.copied='true';
     playRecordSound();
@@ -604,7 +656,7 @@ function submitLoginWithId(){
   initAudio();playClickSound();
   const id=document.getElementById('idInput').value.trim().toUpperCase();
   const err=document.getElementById('loginIdErr');
-  if(!id){err.textContent=' Masukkan ID kamu';return}
+  if(!id){err.textContent='❌ Masukkan ID kamu';return}
   const users=loadUsers();
   for(const u in users){
     if(users[u].id===id){
@@ -617,11 +669,11 @@ function submitLoginWithId(){
       updateHighScoreUI();
       resizeCanvas();
       drawPreview();
-      showToast(' Login berhasil sebagai '+u,'success');
+      showToast('✅ Login berhasil sebagai '+u,'success');
       return;
     }
   }
-  err.textContent=' ID tidak ditemukan';
+  err.textContent='❌ ID tidak ditemukan';
 }
 
 function showMyId(){
@@ -690,17 +742,17 @@ function renderLB(){
   const list=lb[currentLbDiff]||[];
   let html='';
   if(currentUser){
-    html+=`<div class="lb-player-row"><div><div class="lb-label">PEMAIN AKTIF</div><div class="lb-name">${escapeHtml(currentUser.username)}${currentUser.username===ADMIN_NAME?' ':''}</div></div></div>`;
+    html+=`<div class="lb-player-row"><div><div class="lb-label">PEMAIN AKTIF</div><div class="lb-name">${escapeHtml(currentUser.username)}${currentUser.username===ADMIN_NAME?' 👑':''}</div></div></div>`;
   }
   if(list.length===0){
-    html+=`<div class="lb-empty"><span class="lb-empty-icon"></span>Belum ada skor.<br>Main dulu yuk!</div>`;
+    html+=`<div class="lb-empty"><span class="lb-empty-icon">🎯</span>Belum ada skor.<br>Main dulu yuk!</div>`;
   }else{
     html+='<div class="lb-list">';
     list.forEach((e,i)=>{
       const rank=i+1;
       const cls=rank===1?'top1':rank===2?'top2':rank===3?'top3':'';
-      const medal=rank===1?'':rank===2?'':rank===3?'':'#'+rank;
-      const isMe=currentUser&&e.username===currentUser.username?' ':'';
+      const medal=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'#'+rank;
+      const isMe=currentUser&&e.username===currentUser.username?' 👈':'';
       html+=`<div class="lb-item ${cls}"><div class="lb-rank">${medal}</div><div class="lb-info"><div class="lb-name">${escapeHtml(e.username)}${isMe}</div><div class="lb-date">${formatDate(e.date)}</div></div><div class="lb-score">${e.score}</div></div>`;
     });
     html+='</div>';
@@ -721,7 +773,7 @@ pink:{name:'Pink',price:80,head:'#ff69b4',body1:'#ff69b4',body2:'#e91e63',outlin
 cow:{name:'Sapi',price:150,head:'#ffffff',body1:'#ffffff',body2:'#e0e0e0',outline:'#000000',pattern:'cow',preview:'cow'},
 wolf:{name:'Serigala',price:180,head:'#95a5a6',body1:'#95a5a6',body2:'#7f8c8d',outline:'#2c3e50',pattern:'wolf',preview:'wolf'},
 tiger:{name:'Macan',price:200,head:'#ff9800',body1:'#ff9800',body2:'#f57c00',outline:'#3e2723',pattern:'tiger',preview:'tiger'}};
-const HATS={none:{name:'Kosong',price:0,type:'none',preview:''},helmet:{name:'Helm Motor',price:100,type:'helmet',preview:''},farmer:{name:'Topi Petani',price:80,type:'farmer',preview:''},bluehat:{name:'Topi Biru',price:60,type:'bluehat',preview:''},ball:{name:'Topi Bola',price:90,type:'ball',preview:''},baseball:{name:'Baseball',price:70,type:'baseball',preview:''},rabbit:{name:'Topi Kelinci',price:150,type:'rabbit',preview:''}};
+const HATS={none:{name:'Kosong',price:0,type:'none',preview:'∅'},helmet:{name:'Helm Motor',price:100,type:'helmet',preview:'🏍️'},farmer:{name:'Topi Petani',price:80,type:'farmer',preview:'🌾'},bluehat:{name:'Topi Biru',price:60,type:'bluehat',preview:'🧢'},ball:{name:'Topi Bola',price:90,type:'ball',preview:'⚽'},baseball:{name:'Baseball',price:70,type:'baseball',preview:'⚾'},rabbit:{name:'Topi Kelinci',price:150,type:'rabbit',preview:'🐰'}};
 
 let playerData={coins:0,ownedSkins:['green'],ownedHats:['none'],equippedSkin:'green',equippedHat:'none'};
 function loadPlayerData(){try{const s=localStorage.getItem('snakePlayerData');if(s)playerData={...playerData,...JSON.parse(s)}}catch(e){}}
@@ -773,7 +825,7 @@ document.addEventListener('keydown',e=>{if(currentGame!=='snake')return;if(e.key
 let tsX=0,tsY=0;
 canvas.addEventListener('touchstart',e=>{tsX=e.touches[0].clientX;tsY=e.touches[0].clientY},{passive:true});
 canvas.addEventListener('touchmove',e=>{if(currentGame!=='snake')return;e.preventDefault();const dx=e.changedTouches[0].clientX-tsX,dy=e.changedTouches[0].clientY-tsY;if(Math.abs(dx)<20&&Math.abs(dy)<20)return;if(Math.abs(dx)>Math.abs(dy))setDir(dx>0?'right':'left');else setDir(dy>0?'down':'up');tsX=e.changedTouches[0].clientX;tsY=e.changedTouches[0].clientY},{passive:false});
-function selectMode(mode,btn){selectedMode=mode;currentMode=mode;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const c=MODES[mode];document.getElementById('modeInfo').textContent=`Kecepatan awal: ${c.startSpeed}ms � Min: ${c.minSpeed}ms`;drawPreview()}
+function selectMode(mode,btn){selectedMode=mode;currentMode=mode;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const c=MODES[mode];document.getElementById('modeInfo').textContent=`Kecepatan awal: ${c.startSpeed}ms • Min: ${c.minSpeed}ms`;drawPreview()}
 function loadHighScore(mode){highScore=parseInt(localStorage.getItem('snakeHighScore_'+mode)||'0');document.getElementById('highScore').textContent=highScore}
 function startSnake(){initAudio();playClickSound();currentGame='snake';currentMode=selectedMode;const c=MODES[currentMode];resizeCanvas();loadHighScore(currentMode);const center=Math.floor(GRID/2);snake=[{x:center,y:center},{x:center-1,y:center},{x:center-2,y:center}];dir={x:1,y:0};nextDir={x:1,y:0};score=0;speed=c.startSpeed;particles=[];paused=false;document.getElementById('score').textContent='0';document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('newRecord').style.display='none';document.getElementById('pauseBtn').classList.add('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';dpad.classList.add('visible');randomFood();draw();running=true;clearInterval(gameLoop);gameLoop=setInterval(step,speed)}
 function endSnake(){running=false;paused=false;clearInterval(gameLoop);gameLoop=null;playGameOverSound();const coinsEarned=calculateCoins(score);playerData.coins+=coinsEarned;savePlayerData();const isNew=score>highScore;if(isNew){highScore=score;localStorage.setItem('snakeHighScore_'+currentMode,highScore);document.getElementById('highScore').textContent=highScore;document.getElementById('newRecord').style.display='block'}
@@ -794,10 +846,10 @@ function sSpawn(){const r=sDifficulty===3?srand(18,29):sDifficulty===2?srand(22,
 function sReset(){sScore=0;sTimeLeft=30;sCombo=0;sTargets=[];sParticles=[];sShots=[];sSpawnClock=0;document.getElementById('score').textContent=0}
 function updateHighScoreUI(){sHigh=getTargetHighScore(sDifficulty);document.getElementById('highScore').textContent=sHigh}
 function startShoot(){initAudio();playClickSound();sReset();sPlaying=true;sPaused=false;shootOverlay.style.display='none';document.getElementById('pauseBtn').classList.add('visible');document.getElementById('lbBtn').classList.add('visible');updateHighScoreUI();for(let i=0;i<4+sDifficulty;i++)sSpawn();sLast=performance.now();requestAnimationFrame(sLoop)}
-function endShoot(){sPlaying=false;sPaused=false;playGameOverSound();const result=submitTargetScore(sDifficulty,sScore);if(result.isNew&&result.rank===1)setTimeout(playRecordSound,300);updateHighScoreUI();const diffName=['','EASY','NORMAL','HARD'][sDifficulty];let extraMsg='';if(result.isNew){if(result.rank===1)extraMsg=` REKOR BARU! Peringkat #1`;else extraMsg=` Masuk Top 10! Peringkat #${result.rank}`;}
-shootTitle.textContent=' GAME OVER';
-shootMsg.innerHTML=`Mode: <b>${diffName}</b><br>Skor: <b style="color:#f39c12;font-size:20px">${sScore}</b> � High: <b>${sHigh}</b>${extraMsg?`<br><span style="color:#2ecc71;font-weight:bold">${extraMsg}</span>`:''}`;
-shootStartBtn.textContent=' MAIN LAGI';shootOverlay.style.display='flex';document.getElementById('pauseBtn').classList.remove('visible')}
+function endShoot(){sPlaying=false;sPaused=false;playGameOverSound();const result=submitTargetScore(sDifficulty,sScore);if(result.isNew&&result.rank===1)setTimeout(playRecordSound,300);updateHighScoreUI();const diffName=['','EASY','NORMAL','HARD'][sDifficulty];let extraMsg='';if(result.isNew){if(result.rank===1)extraMsg=`🥇 REKOR BARU! Peringkat #1`;else extraMsg=`🎉 Masuk Top 10! Peringkat #${result.rank}`;}
+shootTitle.textContent='🏆 GAME OVER';
+shootMsg.innerHTML=`Mode: <b>${diffName}</b><br>Skor: <b style="color:#f39c12;font-size:20px">${sScore}</b> • High: <b>${sHigh}</b>${extraMsg?`<br><span style="color:#2ecc71;font-weight:bold">${extraMsg}</span>`:''}`;
+shootStartBtn.textContent='↻ MAIN LAGI';shootOverlay.style.display='flex';document.getElementById('pauseBtn').classList.remove('visible')}
 function sTogglePause(){if(!sPlaying)return;sPaused=!sPaused;if(sPaused){pauseGame()}else{resumeGame();sLast=performance.now();requestAnimationFrame(sLoop)}}
 function sHit(x,y){if(!sPlaying||sPaused)return;for(let i=sTargets.length-1;i>=0;i--){const t=sTargets[i],d=Math.hypot(x-t.x,y-t.y);if(d<=t.r){sTargets.splice(i,1);sCombo++;let pts=t.kind==='bonus'?50:10;pts+=Math.min(sCombo-1,10)*2;sScore+=pts;document.getElementById('score').textContent=sScore;playHitSound(t.kind==='bonus');for(let n=0;n<14;n++)sParticles.push({x:t.x,y:t.y,vx:srand(-100,100),vy:srand(-100,100),life:.45});sShots.push({x,y,life:.15});sSpawn();return}}
 sCombo=0;sScore=Math.max(0,sScore-2);document.getElementById('score').textContent=sScore;playMissSound();sShots.push({x,y,life:.15,miss:true})}
@@ -817,20 +869,20 @@ shootDiffBtn.onclick=()=>{sDifficulty=sDifficulty===3?1:sDifficulty+1;shootDiffB
 
 // ================= ROUTER =================
 function openSnake(){initAudio();playClickSound();currentGame='snake_menu';document.getElementById('menuOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.remove('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.remove('visible');resizeCanvas();drawPreview()}
-function openShoot(){initAudio();playClickSound();currentGame='shoot';document.getElementById('menuOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');canvas.style.display='none';document.getElementById('shootWrap').style.display='flex';dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.add('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('score').textContent='0';shootOverlay.style.display='flex';shootTitle.textContent=' TARGET SHOOTING';shootMsg.textContent='Hit target bergerak sebelum waktu habis!';shootStartBtn.textContent=' START';setTimeout(resizeShoot,50)}
+function openShoot(){initAudio();playClickSound();currentGame='shoot';document.getElementById('menuOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('gameOverOverlay').classList.add('hidden');canvas.style.display='none';document.getElementById('shootWrap').style.display='flex';dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.add('visible');document.getElementById('backBtn').classList.add('visible');document.getElementById('score').textContent='0';shootOverlay.style.display='flex';shootTitle.textContent='🎯 TARGET SHOOTING';shootMsg.textContent='Hit target bergerak sebelum waktu habis!';shootStartBtn.textContent='▶ START';setTimeout(resizeShoot,50)}
 function goBack(){playClickSound();running=false;paused=false;sPlaying=false;sPaused=false;clearInterval(gameLoop);gameLoop=null;dpad.classList.remove('visible');document.getElementById('pauseBtn').classList.remove('visible');document.getElementById('lbBtn').classList.remove('visible');document.getElementById('gameOverOverlay').classList.add('hidden');document.getElementById('snakeMenuOverlay').classList.add('hidden');document.getElementById('shootWrap').style.display='none';canvas.style.display='block';document.getElementById('menuOverlay').classList.remove('hidden');document.getElementById('score').textContent='0';document.getElementById('highScore').textContent='0';currentGame=null;resizeCanvas();drawPreview()}
 
 // ================= PAUSE =================
-function pauseGame(){if(currentGame==='shoot'){sTogglePause();return}if(!running||paused)return;paused=true;clearInterval(gameLoop);gameLoop=null;playClickSound();showToast(' Paused','success')}
+function pauseGame(){if(currentGame==='shoot'){sTogglePause();return}if(!running||paused)return;paused=true;clearInterval(gameLoop);gameLoop=null;playClickSound();showToast('⏸️ Paused','success')}
 function resumeGame(){if(currentGame==='shoot'){sTogglePause();return}if(!running||!paused)return;paused=false;playClickSound();gameLoop=setInterval(step,speed)}
 
 // ================= SHOP =================
 function openShop(){initAudio();playClickSound();document.getElementById('shopModal').classList.add('active');renderShopItems();drawPreviewShop()}
 function closeShop(){playClickSound();document.getElementById('shopModal').classList.remove('active')}
-function renderShopItems(){const sc=document.getElementById('skinItems');sc.innerHTML='';Object.keys(SKINS).forEach(k=>{const s=SKINS[k];const owned=playerData.ownedSkins.includes(k);const eq=playerData.equippedSkin===k;const d=document.createElement('div');d.className='shop-item'+(eq?' equipped':'');d.onclick=()=>handleSkinClick(k);let pv='';if(s.pattern==='cow')pv=`<div style="width:100%;height:100%;background:linear-gradient(135deg,#fff 40%,#000 40%,#000 55%,#fff 55%,#fff 70%,#000 70%);border-radius:8px"></div>`;else if(s.pattern==='wolf')pv=`<div style="width:100%;height:100%;background:repeating-linear-gradient(135deg,#95a5a6 0,#95a5a6 6px,#2c3e50 6px,#2c3e50 10px);border-radius:8px"></div>`;else if(s.pattern==='tiger')pv=`<div style="width:100%;height:100%;background:repeating-linear-gradient(90deg,#ff9800 0,#ff9800 6px,#000 6px,#000 10px);border-radius:8px"></div>`;else pv=`<div style="width:100%;height:100%;background:${s.preview};border-radius:8px"></div>`;d.innerHTML=`<div class="item-preview">${pv}</div><div class="item-info"><div class="item-name">${s.name}</div><div class="item-price ${owned?'owned':''}">${owned?' Dimiliki':' '+s.price}</div></div>${eq?'<span class="item-check"></span>':''}`;sc.appendChild(d)});
-const hc=document.getElementById('hatItems');hc.innerHTML='';Object.keys(HATS).forEach(k=>{const h=HATS[k];const owned=playerData.ownedHats.includes(k);const eq=playerData.equippedHat===k;const d=document.createElement('div');d.className='shop-item'+(eq?' equipped':'');d.onclick=()=>handleHatClick(k);const pv=h.type==='none'?`<span style="color:#555;font-size:20px"></span>`:`<span style="font-size:22px">${h.preview}</span>`;d.innerHTML=`<div class="item-preview">${pv}</div><div class="item-info"><div class="item-name">${h.name}</div><div class="item-price ${owned?'owned':''}">${owned?' Dimiliki':' '+h.price}</div></div>${eq?'<span class="item-check"></span>':''}`;hc.appendChild(d)})}
-function handleSkinClick(k){const s=SKINS[k];const owned=playerData.ownedSkins.includes(k);if(owned){playClickSound();playerData.equippedSkin=k;savePlayerData();renderShopItems();drawPreviewShop();showToast(' Skin '+s.name+' dipakai!','success')}else if(playerData.coins>=s.price){playRecordSound();playerData.coins-=s.price;playerData.ownedSkins.push(k);playerData.equippedSkin=k;savePlayerData();renderShopItems();drawPreviewShop();showToast(' Beli skin '+s.name+'!','success')}else{playClickSound();showToast(' Koin kurang!','error')}}
-function handleHatClick(k){const h=HATS[k];const owned=playerData.ownedHats.includes(k);if(owned){playClickSound();playerData.equippedHat=k;savePlayerData();renderShopItems();drawPreviewShop();showToast(' '+h.name+' dipakai!','success')}else if(playerData.coins>=h.price){playRecordSound();playerData.coins-=h.price;playerData.ownedHats.push(k);playerData.equippedHat=k;savePlayerData();renderShopItems();drawPreviewShop();showToast(' Beli '+h.name+'!','success')}else{playClickSound();showToast(' Koin kurang!','error')}}
+function renderShopItems(){const sc=document.getElementById('skinItems');sc.innerHTML='';Object.keys(SKINS).forEach(k=>{const s=SKINS[k];const owned=playerData.ownedSkins.includes(k);const eq=playerData.equippedSkin===k;const d=document.createElement('div');d.className='shop-item'+(eq?' equipped':'');d.onclick=()=>handleSkinClick(k);let pv='';if(s.pattern==='cow')pv=`<div style="width:100%;height:100%;background:linear-gradient(135deg,#fff 40%,#000 40%,#000 55%,#fff 55%,#fff 70%,#000 70%);border-radius:8px"></div>`;else if(s.pattern==='wolf')pv=`<div style="width:100%;height:100%;background:repeating-linear-gradient(135deg,#95a5a6 0,#95a5a6 6px,#2c3e50 6px,#2c3e50 10px);border-radius:8px"></div>`;else if(s.pattern==='tiger')pv=`<div style="width:100%;height:100%;background:repeating-linear-gradient(90deg,#ff9800 0,#ff9800 6px,#000 6px,#000 10px);border-radius:8px"></div>`;else pv=`<div style="width:100%;height:100%;background:${s.preview};border-radius:8px"></div>`;d.innerHTML=`<div class="item-preview">${pv}</div><div class="item-info"><div class="item-name">${s.name}</div><div class="item-price ${owned?'owned':''}">${owned?'✓ Dimiliki':'🪙 '+s.price}</div></div>${eq?'<span class="item-check">✓</span>':''}`;sc.appendChild(d)});
+const hc=document.getElementById('hatItems');hc.innerHTML='';Object.keys(HATS).forEach(k=>{const h=HATS[k];const owned=playerData.ownedHats.includes(k);const eq=playerData.equippedHat===k;const d=document.createElement('div');d.className='shop-item'+(eq?' equipped':'');d.onclick=()=>handleHatClick(k);const pv=h.type==='none'?`<span style="color:#555;font-size:20px">∅</span>`:`<span style="font-size:22px">${h.preview}</span>`;d.innerHTML=`<div class="item-preview">${pv}</div><div class="item-info"><div class="item-name">${h.name}</div><div class="item-price ${owned?'owned':''}">${owned?'✓ Dimiliki':'🪙 '+h.price}</div></div>${eq?'<span class="item-check">✓</span>':''}`;hc.appendChild(d)})}
+function handleSkinClick(k){const s=SKINS[k];const owned=playerData.ownedSkins.includes(k);if(owned){playClickSound();playerData.equippedSkin=k;savePlayerData();renderShopItems();drawPreviewShop();showToast('✅ Skin '+s.name+' dipakai!','success')}else if(playerData.coins>=s.price){playRecordSound();playerData.coins-=s.price;playerData.ownedSkins.push(k);playerData.equippedSkin=k;savePlayerData();renderShopItems();drawPreviewShop();showToast('🎉 Beli skin '+s.name+'!','success')}else{playClickSound();showToast('❌ Koin kurang!','error')}}
+function handleHatClick(k){const h=HATS[k];const owned=playerData.ownedHats.includes(k);if(owned){playClickSound();playerData.equippedHat=k;savePlayerData();renderShopItems();drawPreviewShop();showToast('✅ '+h.name+' dipakai!','success')}else if(playerData.coins>=h.price){playRecordSound();playerData.coins-=h.price;playerData.ownedHats.push(k);playerData.equippedHat=k;savePlayerData();renderShopItems();drawPreviewShop();showToast('🎉 Beli '+h.name+'!','success')}else{playClickSound();showToast('❌ Koin kurang!','error')}}
 function drawPreviewShop(){const pc=document.getElementById('previewCanvas');if(!pc)return;const p=pc.getContext('2d');const W=pc.width,H=pc.height;p.clearRect(0,0,W,H);p.fillStyle='#0a0a15';p.fillRect(0,0,W,H);const skin=getSkin();const hat=HATS[playerData.equippedHat];const cs=H*.55;const sx=W*.15;const cy=H/2;
 for(let i=4;i>=0;i--){const x=sx+i*cs*.7;const isHead=i===4;const t=(4-i)/4;const col=isHead?skin.head:(t<.5?skin.body1:skin.body2);p.fillStyle=skin.outline;p.beginPath();p.arc(x,cy,cs*.5,0,Math.PI*2);p.fill();p.fillStyle=col;p.beginPath();p.arc(x,cy,cs*.42,0,Math.PI*2);p.fill();
 if(skin.pattern==='cow'&&!isHead&&i%2===0){p.fillStyle='#000';p.beginPath();p.arc(x,cy,cs*.22,0,Math.PI*2);p.fill()}else if(skin.pattern==='wolf'&&!isHead&&i%2===0){p.fillStyle='#2c3e50';p.fillRect(x-cs*.08,cy-cs*.35,cs*.16,cs*.7)}else if(skin.pattern==='tiger'&&!isHead&&i%2===0){p.fillStyle='#000';p.fillRect(x-cs*.35,cy-cs*.12,cs*.7,cs*.1);p.fillRect(x-cs*.35,cy+cs*.1,cs*.7,cs*.1)}
